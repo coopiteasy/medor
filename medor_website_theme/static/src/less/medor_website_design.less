@@ -1,6 +1,9 @@
 /* F O N T S */
     
-
+@color-red: #b14542;
+@color-yellow: #FFFF99;
+@color-blue: #2A85A4;
+@color-pink: #FFAAAA;
 
 @font-face {
     src: url("medor_website_theme/static/fonts/Alfphabet_type1.ttf");
@@ -59,12 +62,12 @@ body {
 }
 
 a {
-    color: #b14542;
+    color: @color-red;
     text-decoration: underline;
     text-decoration-skip: ink;
 
     &:hover {
-    	color: #2A85A4;
+    	color: @color-blue;
     }
 }
 
@@ -107,8 +110,6 @@ h5 {
     font-family: Alfphabet;
 
     a { 
-        text-decoration: none; 
-        color: black !important;
     }
 }
 
@@ -119,21 +120,31 @@ h5 {
     align-items: center;
 }
 
-.navbar-nav > li > a {
+.navbar-default .navbar-nav > li > a {
 	padding: 0 0.75em;
+    color: black;
+    text-decoration: none; 
+}
+
+.navbar-default .navbar-nav > li > a:hover, 
+.navbar-default .navbar-nav > li > a:focus {
+    color: @color-pink;
 }
 
 .navbar-default .navbar-nav > .active > a, 
 .navbar-default .navbar-nav > .active > a:hover, 
 .navbar-default .navbar-nav > .active > a:focus {
     background: none;
-    color: white !important;
-    letter-spacing: 1px;
-    text-shadow:
-        -1px -1px 0 #000,
-    	1px -1px 0 #000,
-    	-1px 1px 0 #000,
-    	1px 1px 0 #000; 
+
+    span {
+        border-bottom: 2px solid black;
+        padding-bottom: 2px;
+    }
+}
+
+ul#top_menu {
+    display: flex;
+    align-items: baseline;
 }
 
 .breadcrumb {
@@ -170,12 +181,13 @@ label,
 
 .form-control:focus {
     border: 2px solid black;
-    background-color: #FFFF99;
+    background-color: @color-pink;
     box-shadow: 2px 2px black;
 }
 
-.input-group-addon a {
-    color:black;
+.input-group-addon:hover {
+    color: @color-yellow;
+    background-color: @color-pink;
 }
 
 /* S H O P     L I S T */
@@ -184,25 +196,51 @@ label,
     border: 2px solid black !important;
     text-align: center;
 
-    a
+    section {
+        background: rgba(255, 180, 180, 0.8) !important;
+        display: none;
+        top: 0;
 
-    h5 a {
-	text-decoration: none;
+        h5 {
+            margin: auto;
+        }
     }
+    &:hover section {
+        display: flex;
+    }
+
+    a {
+        color: black;
+        font-weight: normal;
+        text-decoration: none !important;
+        font-size: 24px;
+
+        &:hover {
+            color: @color-yellow;
+        }
+    }
+
 }
 
 .oe_product .product_price {
     font-family: Erbarre;
     left: 0;
     right: 0;
+    bottom: 25% !important;
     text-align: center;
 }
 
 
+/* I M A G E S */
+.product_detail_img {
+    border: 2px solid black;
+    box-shadow: 1px 1px black, 2px 2px black, 3px 3px black, 4px 4px black;
+}
+
 /* B O U T O N S     S H O P */
 
 .input-group-addon {
-    background-color: #FFFF99;
+    background-color: @color-yellow;
     border: 2px solid black;
     color:black;
 }
@@ -211,7 +249,7 @@ label,
     border-radius: 5px;
 }
 .btn-primary {
-    background-color: #FFAAAA;
+    background-color: @color-pink;
     border: 2px solid black;
     box-shadow: 3px 3px black;
     color: black;
@@ -220,7 +258,7 @@ label,
     font-family: Alfphabetbipocat;
 
     &:hover {
-    	background-color: #2A85A4;
+    	background-color: @color-blue;
 	border-color: black;
     }
 }
@@ -244,7 +282,8 @@ label,
 .pagination > .disabled > a, 
 .pagination > .disabled > a:hover, 
 .pagination > .disabled > a:focus {
-    color: #ccc;
+    //color: #ccc;
+    display: none;
 }
 .pagination > li > a, 
 .pagination > li > span {
@@ -256,7 +295,7 @@ label,
 .pagination > .active > span:hover, 
 .pagination > .active > a:focus, 
 .pagination > .active > span:focus {
-    background-color: #FFFF99;
+    background-color: @color-yellow;
     border-color: black;
     color: black;
 }
@@ -265,7 +304,7 @@ label,
 .pagination > li > span:hover, 
 .pagination > li > a:focus, 
 .pagination > li > span:focus {
-    background-color: #FFFF99;
+    background-color: @color-pink;
     border-color: black;
     color: black;
 }
