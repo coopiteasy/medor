@@ -1,56 +1,73 @@
-/* F O N T S */
-    
+/**
+ * V A R I A B L E S
+ */
+
+
 @color-red: #b14542;
 @color-yellow: #FFFF99;
 @color-blue: #2A85A4;
 @color-pink: #FFAAAA;
 
+
+/* F O N T S */
+    
+
 @font-face {
-    src: url("medor_website_theme/static/fonts/Alfphabet_type1.ttf");
+    src: url("/medor_website_theme/static/src/fonts/Alfphabet_type1.ttf");
     font-family: "Alfphabet";
 }
+
 @font-face {
-    src: url("medor_website_theme/static/fonts/alfphabetbipocat-condensed-webfont.ttf");
+    src: url("/medor_website_theme/static/src/fonts/alfphabetbipocat-condensed-webfont.ttf");
     font-family: "Alfphabetbipocat";
 }
+
 @font-face {
-    src: url("medor_website_theme/static/fonts/bagnard-webfont.ttf");
+    src: url("/medor_website_theme/static/src/fonts/bagnard-webfont.ttf");
     font-family: "Bagnard";
 }
+
 @font-face {
-    src: url("/static/fonts/Career.ttf");
+    src: url("/medor_website_theme/static/src/fonts/Career.ttf");
     font-family: "Career";
 }
+
 @font-face {
     src: url("/medor_website_theme/static/src/fonts/centuryschl-roma-webfont.ttf");
     font-family: "CenturySchoolbook";
     font-style: normal;
 }
+
 @font-face {
-    src: url("medor_website_theme/static/fonts/centuryschl-ital-webfont.ttf");
+    src: url("/medor_website_theme/static/src/fonts/centuryschl-ital-webfont.ttf");
     font-family: "CenturySchoolbook";
     font-style: italic;
 }
+
 @font-face {
-    src: url("medor_website_theme/static/fonts/erbar-lightcondensed-webfont.ttf");
+    src: url("/medor_website_theme/static/src/fonts/erbar-lightcondensed-webfont.ttf");
     font-family: "Erbar";
     font-weight: normal;
 }
+
 @font-face {
-    src: url("medor_website_theme/static/fonts/erbar-boldcondensed-webfont.ttf");
+    src: url("/medor_website_theme/static/src/fonts/erbar-boldcondensed-webfont.ttf");
     font-family: "Erbar";
     font-weight: bold;
 }
+
 @font-face {
-    src: url("medor_website_theme/static/fonts/ErbarreRegular.ttf");
+    src: url("/medor_website_theme/static/src/fonts/ErbarreRegular.ttf");
     font-family: "Erbarre";
     font-weight: normal;
 }
+
 @font-face {
-    src: url("medor_website_theme/static/fonts/ErbarreBold.ttf");
+    src: url("/medor_website_theme/static/src/fonts/ErbarreBold.ttf");
     font-family: "Erbarre";
     font-weight: bold;
 }
+
 
 /* R E D E F I N E    T A G S*/
 
@@ -71,14 +88,11 @@ a {
     }
 }
 
-h1 {
-    font-family: Career;
-}
+h1 { font-family: Career; }
 
 h2 {
     font-family: Career;
     font-size: 24px;
-
 }
 
 h1 u,
@@ -93,13 +107,9 @@ h3 {
     font-family: Erbarre;
 }
 
-h4 {
-    font-family: Erbarre;
-}
+h4 { font-family: Erbarre; }
 
-h5 {
-    font-family: Alfphabet;
-}
+h5 { font-family: Alfphabet; }
 
 #footer {
     margin-top: 1em;
@@ -110,34 +120,42 @@ h5 {
 
 
 /* N A V */
-
-
 .navbar-default {
-    background-color: white;
-    border: 0;
     font-family: Alfphabet;
 
-    a { 
-    }
+    background-color: transparent;
+    border: 0;
+    border-bottom: 5px solid @color-pink;
 }
 
-.navbar .container,
-.navbar-collapse,
-.navbar-collapse.collapse {
-    display: flex !important;
-    align-items: center;
+.navbar.navbar-static-top { 
+    margin: 1.5em 0;
+    padding-bottom: 1em;
 }
+
+// .products_pager,
+// #product_detail > .row:first-child {
+//     background-color: #f3aaab;
+//     padding: 10px 0;
+//     border-top: 3px solid black;
+//     border-bottom: 3px solid black;
+// }
+
+// .navbar .container,
+// .navbar-collapse,
+// .navbar-collapse.collapse {
+//     display: flex !important;
+//     align-items: center;
+// }
 
 .navbar-default .navbar-nav > li > a {
-	padding: 0 0.75em;
+	// padding: 0 0.75em;
     color: black;
     text-decoration: none; 
 }
 
 .navbar-default .navbar-nav > li > a:hover, 
-.navbar-default .navbar-nav > li > a:focus {
-    color: @color-pink;
-}
+.navbar-default .navbar-nav > li > a:focus { color: @color-pink; }
 
 .navbar-default .navbar-nav > .active > a, 
 .navbar-default .navbar-nav > .active > a:hover, 
@@ -150,10 +168,10 @@ h5 {
     }
 }
 
-ul#top_menu {
-    display: flex;
-    align-items: baseline;
-}
+// ul#top_menu {
+//     display: flex;
+//     align-items: baseline;
+// }
 
 .breadcrumb {
     background: none;
@@ -185,9 +203,7 @@ ul#top_menu {
 /* F O R M U L A I R E S */
 
 label, 
-.form-horizontal .control-label {
-    font-family: Alfphabet;
-}
+.form-horizontal .control-label { font-family: Alfphabet; }
 
 .form-control {
     border: 2px solid black;
@@ -216,21 +232,21 @@ label,
 /* S H O P     L I S T */
 
 .oe_product {
-    border: 2px solid black !important;
+    border: none !important;
     text-align: center;
 
-    section {
-        background: rgba(255, 180, 180, 0.8) !important;
-        display: none;
-        top: 0;
+    // section {
+    //     background: rgba(255, 180, 180, 0.8) !important;
+    //     display: none;
+    //     top: 0;
 
-        h5 {
-            margin: auto;
-        }
-    }
-    &:hover section {
-        display: flex;
-    }
+    //     h5 {
+    //         margin: auto;
+    //     }
+    // }
+    // &:hover section {
+    //     display: flex;
+    // }
 
     a {
         color: black;
@@ -239,10 +255,26 @@ label,
         font-size: 24px;
 
         &:hover {
-            color: @color-yellow;
+            color: @color-blue;
+            text-shadow: 1px 1px black;
         }
     }
+}
 
+
+.oe_product .oe_product_image {
+    position: initial !important;
+}
+
+.oe_product .oe_product_image img {
+    position: initial !important;
+}
+
+.oe_product section {
+    position: initial !important;
+    padding: 0 !important;
+    min-height: initial !imporant;
+    border-top: none !important;
 }
 
 .oe_product .product_price {
@@ -251,6 +283,8 @@ label,
     right: 0;
     bottom: 25% !important;
     text-align: center;
+
+    position: initial !important;
 }
 
 
@@ -268,9 +302,18 @@ label,
     color:black;
 }
 
-.btn-lg, .btn-group-lg > .btn {
-    border-radius: 5px;
+
+.btn {
+    padding: 5px 12px;
+    border-width: 2px;
 }
+
+.btn-default {
+    border-color: #000;
+}
+
+.btn-lg, .btn-group-lg > .btn { border-radius: 5px; }
+
 .btn-primary {
     background-color: @color-pink;
     border: 2px solid black;
@@ -309,9 +352,7 @@ label,
     display: none;
 }
 .pagination > li > a, 
-.pagination > li > span {
-    color: black;
-}
+.pagination > li > span { color: black; }
 .pagination > .active > a, 
 .pagination > .active > span, 
 .pagination > .active > a:hover, 
@@ -334,6 +375,10 @@ label,
 
 
 /* W I D G E T S */
-.s_separator {
-    border-top:2px solid black;
-}
+.s_separator { border-top:2px solid black; }
+
+
+#wrapwrap > footer { display: none }
+
+
+
