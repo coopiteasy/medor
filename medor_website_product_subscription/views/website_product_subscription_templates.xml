@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <template id="becomesubscriber_gift"
+    inherit_id="website_product_subscription.becomesubscriber">
+    <xpath expr="//div[hasclass('oe_product_subscription')]//input[@name='gift']/.."
+      position="after">
+      <p class="oe_gift_link">
+        Pour imprimer le bon cadeau, c'est par
+        <a href="https://nuage.medor.coop/s/A84k2ye6ymdQHR3">là</a>.
+      </p>
+    </xpath>
+  </template>
+</odoo>
