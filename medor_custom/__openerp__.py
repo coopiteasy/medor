@@ -20,6 +20,7 @@
 
     'depends': [
         'website_product_subscription',
+        'l10n_be_invoice_bba',
     ],
 
     'data': [
