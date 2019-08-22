@@ -19,11 +19,15 @@
     'version': '9.0.1.0',
 
     'depends': [
+        'oauth_provider',
+        'product_subscription',
+        'product_subscription_delivery',
         'website_product_subscription',
+        'medor_website_product_subscription',
         'l10n_be_invoice_bba',
     ],
 
     'data': [
-        'views/website_product_subscription_templates.xml',
+        'data/data.xml',
     ]
 }
