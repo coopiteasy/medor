@@ -18,7 +18,10 @@
     'category': "Website",
     'version': '9.0.1.0',
 
-    'depends': ['website_product_subscription'],
+    'depends': [
+        'website_product_subscription',
+        'l10n_be_invoice_bba',
+    ],
 
     'data': [
         'views/website_product_subscription_templates.xml',
