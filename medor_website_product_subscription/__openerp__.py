@@ -22,5 +22,6 @@
 
     'data': [
         'views/website_product_subscription_templates.xml',
+        'views/medor_website_ps_templates.xml',
     ]
 }
