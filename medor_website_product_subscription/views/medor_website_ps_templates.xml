@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+      Copyright 2019 Coop IT Easy
+      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+
+    <template id="assets_frontend" inherit_id="website.assets_frontend" name="Form frontend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/medor_website_product_subscription/static/src/js/form.js" />
+        </xpath>
+    </template>
+
+    <template id="user_fields" name="User form fields">
+
+        <div t-if="is_company"
+            t-attf-class="field-company_name {{field_class}}">
+            <label for="company_name">Company Name</label>
+            <input id="company_name"
+                t-att-class="input_class"
+                type="text"
+                name="company_name"
+                t-att-value="company_name"
+                autocapitalize="off"
+                required="required"/>
+        </div>
+
+        <div t-attf-class="field-firstname {{field_class}}">
+            <label for="firstname">Firstname</label>
+            <input id="firstname"
+                t-att-class="input_class"
+                type="text"
+                name="firstname"
+                t-att-value="firstname"
+                autocapitalize="off"
+                required="required"/>
+        </div>
+
+        <div t-attf-class="field-lastname {{field_class}}">
+            <label for="lastname">Lastname</label>
+            <input id="lastname"
+                t-att-class="input_class"
+                type="text"
+                name="lastname"
+                t-att-value="lastname"
+                required="required"/>
+        </div>
+
+        <div t-attf-class="field-login {{field_class}}">
+            <label for="login">Email</label>
+            <input id="login"
+                t-att-class="input_class"
+                type="email"
+                name="login"
+                t-att-value="login"
+                autofocus="autofocus"
+                autocapitalize="off"
+                required="required"/>
+        </div>
+
+        <div t-attf-class="field-birthdate_date {{field_class}}">
+            <label for="birthdate_date">Birthday</label>
+            <input id="birthdate_date"
+                t-att-class="input_class"
+                type="date"
+                name="birthdate_date"
+                t-att-value="birthdate_date"
+                required="required"/>
+        </div>
+
+        <div t-if="is_company"
+            t-attf-class="field-vat {{field_class}}">
+            <label for="vat">VAT</label>
+            <input id="vat"
+                t-att-class="input_class"
+                type="text"
+                name="vat"
+                t-att-value="vat"
+                required="required"/>
+        </div>
+
+        <h4 t-attf-class="{{title_class}}">Shipping address</h4>
+        <div t-attf-class="field-street {{field_class}}">
+            <label for="street">Address</label>
+            <input id="street"
+                t-att-class="input_class"
+                type="text"
+                name="street"
+                t-att-value="street"
+                required="required"/>
+        </div>
+
+        <div t-attf-class="field-zip_code {{field_class}}">
+            <label for="zip_code">Zip / Postal Code</label>
+            <input id="zip_code"
+                t-att-class="input_class"
+                type="text"
+                name="zip_code"
+                t-att-value="zip_code"
+                required="required"/>
+        </div>
+
+        <div t-attf-class="field-city {{field_class}}">
+            <label for="city">City</label>
+            <input id="city"
+                t-att-class="input_class"
+                type="text"
+                name="city"
+                t-att-value="city"
+                required="required"/>
+        </div>
+
+        <div t-attf-class="field-country_id {{field_class}}">
+            <label for="country_id">Country</label>
+            <select id="country_id"
+                t-att-class="input_class"
+                name="country_id"
+                required="required">
+                <t t-foreach="countries or []" t-as="country">
+                    <option
+                        t-att-selected="'selected' if country.id == country_id else None"
+                        t-att-value="country.id">
+                        <t t-esc="country.name"/>
+                    </option>
+                </t>
+            </select>
+        </div>
+
+        <div t-attf-class="field-invoice_address {{field_class}}">
+            <label>
+                <input name="invoice_address" type="checkbox"
+                    t-att-checked="invoice_address"/>
+                Invoice addresse differ from shipping address ?
+            </label>
+        </div>
+
+        <h4 t-attf-class="title-inv_address {{title_class}}">Invoice address</h4>
+        <div t-attf-class="field-inv_street {{field_class}}">
+            <label for="inv_street">Address</label>
+            <input id="inv_street"
+                t-att-class="input_class"
+                type="text"
+                name="inv_street"
+                t-att-value="inv_street"
+                required="required"/>
+        </div>
+
+        <div t-attf-class="field-inv_zip_code {{field_class}}">
+            <label for="inv_zip_code">Zip / Postal Code</label>
+            <input id="inv_zip_code"
+                t-att-class="input_class"
+                type="text"
+                name="inv_zip_code"
+                t-att-value="inv_zip_code"
+                required="required"/>
+        </div>
+
+        <div t-attf-class="field-inv_city {{field_class}}">
+            <label for="inv_city">City</label>
+            <input id="inv_city"
+                t-att-class="input_class"
+                type="text"
+                name="inv_city"
+                t-att-value="inv_city"
+                required="required"/>
+        </div>
+
+        <div t-attf-class="field-inv_country_id {{field_class}}">
+            <label for="inv_country_id">Country</label>
+            <select id="inv_country_id"
+                t-att-class="input_class"
+                name="inv_country_id"
+                required="required">
+                <t t-foreach="countries or []" t-as="country">
+                    <option
+                        t-att-selected="'selected' if country.id == inv_country_id else None"
+                        t-att-value="country.id">
+                        <t t-esc="country.name"/>
+                    </option>
+                </t>
+            </select>
+        </div>
+
+    </template>
+
+
+    <template id="user_form" name="User Form">
+        <t t-call="website.layout">
+            <div class="container oe_user_form">
+                <h3>User Details</h3>
+                <form method="post" class="row">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <t t-call="medor_website_product_subscription.user_fields">
+                        <t t-set="field_class" t-value="'form-group col-lg-6'"/>
+                        <t t-set="input_class" t-value="'form-control'"/>
+                        <t t-set="title_class" t-value="'col-lg-12'"/>
+                    </t>
+
+                    <p class="alert alert-danger col-lg-12" t-if="error" role="alert">
+                        <t t-esc="error"/>
+                    </p>
+                    <div class="col-lg-12 text-center oe_send_button">
+                        <button type="submit" class="btn btn-primary">
+                            Send
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </t>
+    </template>
+
+</odoo>
