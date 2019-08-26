@@ -20,6 +20,8 @@
 
     'depends': [
         'oauth_provider',
+        'easy_my_coop',
+        'delivery_distribution_list',
         'product_subscription',
         'product_subscription_delivery',
         'website_product_subscription',
@@ -29,5 +31,8 @@
 
     'data': [
         'data/data.xml',
-    ]
+    ],
+    'demo': [
+        'demo/demo.xml',
+    ],
 }
