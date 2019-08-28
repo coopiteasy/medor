@@ -24,6 +24,7 @@
         'delivery_distribution_list',
         'product_subscription',
         'product_subscription_delivery',
+        'product_subscription_web_access',
         'website_product_subscription',
         'medor_website_product_subscription',
         'l10n_be_invoice_bba',

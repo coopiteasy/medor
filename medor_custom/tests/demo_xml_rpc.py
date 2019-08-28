@@ -6,13 +6,15 @@
 import xmlrpclib
 
 HOST = '127.0.0.1'
-PORT = 9999
-DB = 'odoo-test-9'  # fixme
+PORT = 8069
+# PORT = 9999
+DB = 'medor'  # fixme
+# DB = 'odoo-test-9'  # fixme
 USER = 'admin'  # todo test client user
 PASSWORD = 'admin'
 
 
-def test_xml_rpc():
+def demo_xml_rpc():
 
     url = 'http://%s:%d/xmlrpc/2/' % (HOST, PORT)
 
@@ -35,6 +37,27 @@ def test_xml_rpc():
     )
     print(deposit_points)
 
+    subscription = models.execute_kw(
+            DB, uid, PASSWORD,
+            'res.users', 'get_subscription',
+            [1], {}
+    )
+    print subscription
+
+    subscription = models.execute_kw(
+            DB, uid, PASSWORD,
+            'res.users', 'get_subscription',
+            [5910], {}
+    )
+    print subscription
+
+    subscription = models.execute_kw(
+            DB, uid, PASSWORD,
+            'res.users', 'get_subscription',
+            [2881], {}
+    )
+    print subscription
+
 
 if __name__ == '__main__':
-    test_xml_rpc()
+    demo_xml_rpc()

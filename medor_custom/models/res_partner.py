@@ -8,7 +8,6 @@ from openerp import models, fields, api
 
 class ResPartner(models.Model):
     _inherit = 'res.partner'
-    _description = 'ResPartner'
 
     @api.model
     def create(self, vals):
