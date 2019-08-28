@@ -36,6 +36,6 @@
             <field name="name">https://medor.coop/complete/odoo</field>
             <field name="client_id" ref="data_oauth_provider_client_medor_coop"/>
         </record>
+
     </data>
 </odoo>
-
