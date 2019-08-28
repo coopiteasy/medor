@@ -54,5 +54,3 @@ class ResUsers(models.Model):
                 'subscription': '',
                 'subscribed': False,
             })
-
-        # date start / end / abonnement /

@@ -10,8 +10,8 @@ PORT = 8069
 # PORT = 9999
 DB = 'medor'  # fixme
 # DB = 'odoo-test-9'  # fixme
-USER = 'admin'  # todo test client user
-PASSWORD = 'admin'
+USER = 'medor_api_user'
+PASSWORD = 'medor_api_user'
 
 
 def demo_xml_rpc():

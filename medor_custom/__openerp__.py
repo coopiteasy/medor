@@ -31,7 +31,10 @@
     ],
 
     'data': [
+        'security/security.xml',
+        'security/ir.model.access.csv',
         'data/data.xml',
+        'data/medor_api_user.xml',
     ],
     'demo': [
         'demo/demo.xml',
