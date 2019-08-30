@@ -44,6 +44,6 @@ class ResCompany(models.Model):
         data = [{
             'name': dp.name,
             'address': dp._display_address(dp)
-        } for dp in deposit_points]
+        } for dp in deposit_points if dp.name]
 
         return json.dumps({'deposit_points': data})
