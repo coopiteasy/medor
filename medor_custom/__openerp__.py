@@ -22,6 +22,7 @@
         'oauth_provider',
         'easy_my_coop',
         'delivery_distribution_list',
+        'product',
         'product_subscription',
         'product_subscription_delivery',
         'product_subscription_web_access',
@@ -35,6 +36,7 @@
         'security/ir.model.access.csv',
         'data/data.xml',
         'data/medor_api_user.xml',
+        'templates/trial_subscription_form.xml',
     ],
     'demo': [
         'demo/demo.xml',
