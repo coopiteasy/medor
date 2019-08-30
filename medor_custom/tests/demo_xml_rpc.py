@@ -58,6 +58,21 @@ def demo_xml_rpc():
     )
     print subscription
 
+    partner_fields = models.execute_kw(
+            DB, uid, PASSWORD,
+            'res.users', 'read',
+            [2881], {'fields': ['partner_id']}
+    )
+    print partner_fields  # {'partner_id': [7555, 'JACOBS Aline'], 'id': 2881}
+
+    partner_id = partner_fields['partner_id'][0]
+    partner_info = models.execute_kw(
+            DB, uid, PASSWORD,
+            'res.partner', 'read',
+            [partner_id], {'fields': ['name', 'firstname', 'lastname']}
+    )
+    print partner_info
+
 
 if __name__ == '__main__':
     demo_xml_rpc()
