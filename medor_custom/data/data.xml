@@ -37,5 +37,32 @@
             <field name="client_id" ref="data_oauth_provider_client_medor_coop"/>
         </record>
 
+        <record id="data_medor_dummy_trial_journal" model="account.journal">
+            <field name="name">Trial Subscriptions</field>
+            <field name="code">TINV</field>
+            <field name="type">sale</field>
+            <field name="refund_sequence" eval="True"/>
+        </record>
+
+        <record id="data_medor_dummy_trial_product" model="product.template">
+            <field name="name">Abonnement d'essai</field>
+            <field name="categ_id" eval="1"/>
+            <field name="sale_ok" eval="False"/>
+            <field name="list_price">0</field>
+            <field name="type">service</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="subscription" eval="True"/>
+            <field name="product_qty">0</field>
+        </record>
+
+        <record id="data_medor_trial_subscription_trial" model="product.subscription.template">
+            <field name="name">Abonnement d'essai au Médor</field>
+            <field name="product_qty">0</field>
+            <field name="price">0</field>
+            <field name="publish" eval="False"/>
+            <field name="product" ref="data_medor_dummy_trial_product"/>
+            <field name="journal" ref="data_medor_dummy_trial_journal"/>
+        </record>
+
     </data>
 </odoo>

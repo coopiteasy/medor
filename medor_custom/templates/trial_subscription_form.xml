@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+      Copyright 2019 Coop IT Easy
+      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <data>
+        <template id="assets_frontend" inherit_id="website.assets_frontend" name="Coop">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/website_product_subscription/static/src/js/product_subscription.js" />
+            </xpath>
+        </template>
+
+        <template id="template_trial_subscription" name="Become Subscriber" page="True">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="oe_structure" />
+                    <div class="container oe_product_subscription">
+                        <h2 class="energie">Get a Trial Subscription</h2>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-8">
+                                <form action="/trial_subscription/subscribe" method="post" class="form-horizontal mt32" enctype="multipart/form-data">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                                    <div t-attf-class="form-group" style="display: none;">
+                                        <label>
+                                            <input type="checkbox" t-att-checked="logged" name="logged" />
+                                            Logged
+                                        </label>
+                                    </div>
+                                    <t t-if="error_msg">
+                                        <div class="alert alert-danger col-xs-10">
+                                            <t t-esc="error_msg" />
+                                        </div>
+                                    </t>
+                                    <div name="subscriber_info">
+                                        <div t-attf-class="form-group #{error and 'firstname' in error and 'has-error' or ''}">
+                                            <label class="col-md-3 col-sm-4 control-label" for="firstname">First Name</label>
+                                            <div class="col-md-7 col-sm-6" style="padding-top:5px">
+                                                <input type="text" class="form-control mandatory-field" name="firstname" required="True" t-attf-value="#{firstname or ''}" />
+                                            </div>
+                                        </div>
+                                        <div t-attf-class="form-group #{error and 'lastname' in error and 'has-error' or ''}">
+                                            <label class="col-md-3 col-sm-4 control-label" for="lastname">Last Name</label>
+                                            <div class="col-md-7 col-sm-8">
+                                                <input type="text" class="form-control mandatory-field" name="lastname" required="True" t-attf-value="#{lastname or ''}" />
+                                            </div>
+                                        </div>
+                                        <div name="email_container" t-attf-class="form-group #{error and 'email' in error and 'has-error' or ''}">
+                                            <label class="col-md-3 col-sm-4 control-label" for="email">Email</label>
+                                            <div class="col-md-7 col-sm-8 bottom-line" style="padding-bottom:20px">
+                                                <input type="email" class="form-control mandatory-field" name="email" required="True" t-attf-value="#{email or ''}" />
+                                            </div>
+                                        </div>
+                                        <div name="email_confirmation_container" t-attf-class="form-group #{error and 'email_confirmation' in error and 'has-error' or ''}">
+                                            <label class="col-md-3 col-sm-4 control-label" for="email_confirmation">Confirm Email</label>
+                                            <div class="col-md-7 col-sm-8">
+                                                <input type="email" class="form-control" name="email_confirmation" required="True" t-attf-value="#{email_confirmation or ''}" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="bottom-line" style="margin-left:178px;margin-top:0px;width:61%" />
+                                    <br />
+                                    <table style="margin-left:195px">
+                                        <tr>
+                                            <td width="80%">
+                                                <div class="g-recaptcha" t-att-data-sitekey="website.recaptcha_site_key" data-theme="green" />
+                                                <br />
+                                            </td>
+                                            <td>
+                                                <div class="form-group">
+                                                    <div class="col-md-offset-3 col-sm-offset-4 col-sm-8 col-md-7">
+                                                        <button class="btn btn-primary btn-lg">Send</button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <br />
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="oe_structure" />
+                </div>
+            </t>
+        </template>
+
+        <template id="template_trial_subscription_thanks" name="Trial Subscription Thanks" page="True">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="oe_structure" />
+                    <div class="container">
+                        <h1>Thank you!</h1>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="alert alert-success">
+                                    Your subscription has been successfully registered.
+                                    Check your emails for instructions to set your password.
+                                    <button type="button" class="close" data-dismiss="alert">&amp;times;</button>
+                                </div>
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <i class="fa fa-phone" />
+                                        :
+                                        <span t-field="res_company.phone" />
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-envelope" />
+                                        :
+                                        <span t-field="res_company.email" />
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-4">
+                                <t t-call="website.company_description" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="oe_structure" />
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>
