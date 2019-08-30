@@ -36,12 +36,12 @@ class ResUsers(models.Model):
         ))
 
         if subscriptions:
-            first = subscriptions.sorted(lambda s: s.subscribed_on)[0]
+            first = subscriptions.sorted(lambda s: s.start_date)[0]
             last = subscriptions.sorted(lambda s: s.end_date, reverse=True)[0]
 
             return json.dumps({
                 'id': user_id,
-                'start': first.subscribed_on,
+                'start': first.start_date,
                 'end': last.end_date,
                 'subscription': first.template.name,
                 'subscribed': partner.is_web_subscribed,

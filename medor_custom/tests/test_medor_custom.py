@@ -19,8 +19,6 @@ class TestMedorCustom(TransactionCase):
         print company.get_deposit_point()
         self.assertTrue(True)
 
-    # todo test from xml rpc
-
     def test_get_subscription(self):
         User = self.env['res.users']
 
