@@ -28,6 +28,8 @@
         'product_subscription_web_access',
         'website_product_subscription',
         'medor_website_product_subscription',
+        'website_product_subscription_mollie_payment',
+        'website_product_subscription_online_payment',
         'l10n_be_invoice_bba',
     ],
 
