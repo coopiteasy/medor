@@ -39,6 +39,7 @@
         'data/data.xml',
         'data/medor_api_user.xml',
         'templates/trial_subscription_form.xml',
+        'templates/delivery_templates.xml',
     ],
     'demo': [
         'demo/demo.xml',
