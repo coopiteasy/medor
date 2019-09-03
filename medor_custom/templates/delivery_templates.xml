@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+      Copyright 2019 Coop IT Easy
+      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+
+    <template id="assets_frontend" inherit_id="website.assets_frontend" name="Form frontend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/medor_custom/static/src/js/form.js" />
+        </xpath>
+    </template>
+
+    <template id="delivery_fields" name="Delivery form fields">
+
+        <div t-attf-class="field-delivery_method_me {{field_class}}">
+            <label for="delivery_method_me">
+                <input id="delivery_method_me"
+                    type="radio"
+                    name="delivery_method"
+                    value="me"
+                    t-att-checked="'checked' if delivery_method == 'me' else None"/>
+                Deliver to my address
+            </label>
+        </div>
+
+        <div t-attf-class="field-delivery_method_friend {{field_class}}">
+            <label for="delivery_method_friend">
+                <input id="delivery_method_friend"
+                    type="radio"
+                    name="delivery_method"
+                    value="friend"
+                    t-att-checked="'checked' if delivery_method == 'friend' else None"/>
+                Deliver to a friend
+            </label>
+        </div>
+
+        <div t-attf-class="field-delivery_method_other {{field_class}}">
+            <label for="delivery_method_other">
+                <input id="delivery_method_other"
+                    type="radio"
+                    name="delivery_method"
+                    value="other"
+                    t-att-checked="'checked' if delivery_method == 'other' else None"/>
+                Deliver to someone else
+            </label>
+        </div>
+
+        <h4 t-attf-class="title-friend {{title_class}}">
+            Friend Shipping Address
+        </h4>
+
+        <div t-attf-class="field-friend_name {{field_class}}">
+            <label for="friend_name">Friend Name</label>
+            <input id="friend_name"
+                t-att-class="input_class"
+                type="text"
+                name="friend_name"
+                t-att-value="friend_name"
+                autocapitalize="off"
+                required="required"/>
+        </div>
+
+        <div t-attf-class="field-friend_street {{field_class}}">
+            <label for="friend_street">Friend Address</label>
+            <input id="friend_street"
+                t-att-class="input_class"
+                type="text"
+                name="friend_street"
+                t-att-value="friend_street"
+                required="required"/>
+        </div>
+
+        <div t-attf-class="field-friend_zip_code {{field_class}}">
+            <label for="friend_zip_code">Friend Zip / Postal Code</label>
+            <input id="friend_zip_code"
+                t-att-class="input_class"
+                type="text"
+                name="friend_zip_code"
+                t-att-value="friend_zip_code"
+                required="required"/>
+        </div>
+
+        <div t-attf-class="field-friend_city {{field_class}}">
+            <label for="friend_city">Friend City</label>
+            <input id="friend_city"
+                t-att-class="input_class"
+                type="text"
+                name="friend_city"
+                t-att-value="friend_city"
+                required="required"/>
+        </div>
+
+        <div t-attf-class="field-friend_country_id {{field_class}}">
+            <label for="friend_country_id">Country</label>
+            <select id="friend_country_id"
+                t-att-class="input_class"
+                name="friend_country_id"
+                required="required">
+                <t t-foreach="countries or []" t-as="country">
+                    <option
+                        t-att-selected="'selected' if country.id == friend_country_id else None"
+                        t-att-value="country.id">
+                        <t t-esc="country.name"/>
+                    </option>
+                </t>
+            </select>
+        </div>
+
+    </template>
+
+
+    <template id="delivery_form" name="Delivery Form">
+        <t t-call="website.layout">
+            <div class="container oe_delivery_form">
+                <h3>Delivery Method</h3>
+                <form method="post" class="row">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <t t-call="medor_custom.delivery_fields">
+                        <t t-set="field_class" t-value="'form-group col-lg-6'"/>
+                        <t t-set="input_class" t-value="'form-control'"/>
+                        <t t-set="title_class" t-value="'col-lg-12'"/>
+                    </t>
+
+                    <p class="alert alert-danger col-lg-12" t-if="error" role="alert">
+                        <t t-esc="error"/>
+                    </p>
+                    <div class="col-lg-12 text-center oe_send_button">
+                        <button type="submit" class="btn btn-primary">
+                            Send
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </t>
+    </template>
+
+</odoo>
