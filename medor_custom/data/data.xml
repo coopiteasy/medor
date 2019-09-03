@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2019 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <data noupdate="1">
+        <record id="data_oauth_provider_scope_user_login" model="oauth.provider.scope">
+            <field name="name">user-login</field>
+            <field name="code">user-login</field>
+            <field name="description">User minimal info</field>
+            <field name="model_id" ref="base.model_res_users"/>
+            <field name="field_ids" eval="[(6, 0, [ref('base.field_res_users_id'),
+                                                   ref('base.field_res_users_login'),
+                                                   ref('base.field_res_users_email'),
+                                                   ref('partner_firstname.field_res_users_firstname'),
+                                                   ref('partner_firstname.field_res_users_lastname')])]"/>
+        </record>
+
+        <record id="data_oauth_provider_client_medor_coop" model="oauth.provider.client">
+            <field name="name">medor.coop</field>
+            <!-- set secret manually -->
+            <field name="secret"/>
+            <field name="application_type">web application</field>
+            <field name="token_type">random</field>
+            <field name="skip_authorization" eval="True"/>
+            <field name="scope_ids" eval="[(6, 0, [ref('data_oauth_provider_scope_user_login')])]"/>
+        </record>
+
+        <record id="data_oauth_provider_redirect_uri_medor_coop" model="oauth.provider.redirect.uri">
+            <field name="name">https://medor.coop</field>
+            <field name="client_id" ref="data_oauth_provider_client_medor_coop"/>
+        </record>
+
+        <record id="data_oauth_provider_redirect_uri_medor_coop_complete_odoo" model="oauth.provider.redirect.uri">
+            <field name="name">https://medor.coop/complete/odoo</field>
+            <field name="client_id" ref="data_oauth_provider_client_medor_coop"/>
+        </record>
+    </data>
+</odoo>
+

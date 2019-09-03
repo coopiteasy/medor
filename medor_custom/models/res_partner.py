@@ -17,4 +17,3 @@ class ResPartner(models.Model):
             'out_inv_comm_algorithm': 'random',
         })
         return super(ResPartner, self).create(vals)
-
