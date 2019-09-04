@@ -30,7 +30,7 @@ class ResCompany(models.Model):
             cooperators = (
                 self.env['res.partner']
                     .sudo()
-                    .search([('cooperator', '=', True)])
+                    .search([('member', '=', True)])
             )
             company.nb_cooperators = len(cooperators)
 
