@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-      Copyright 2019 Coop IT Easy
-      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+    Copyright 2019 Coop IT Easy SCRLfs (http://coopiteasy.be)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
 <odoo>
 
@@ -14,7 +14,7 @@
     <template id="delivery_fields" name="Delivery form fields">
 
         <div t-attf-class="field-delivery_method_me {{field_class}}">
-            <label for="delivery_method_me">
+            <label for="delivery_method_me" t-attf-class="{{label_class}}">
                 <input id="delivery_method_me"
                     type="radio"
                     name="delivery_method"
@@ -25,7 +25,7 @@
         </div>
 
         <div t-attf-class="field-delivery_method_friend {{field_class}}">
-            <label for="delivery_method_friend">
+            <label for="delivery_method_friend" t-attf-class="{{label_class}}">
                 <input id="delivery_method_friend"
                     type="radio"
                     name="delivery_method"
@@ -36,7 +36,7 @@
         </div>
 
         <div t-attf-class="field-delivery_method_other {{field_class}}">
-            <label for="delivery_method_other">
+            <label for="delivery_method_other" t-attf-class="{{label_class}}">
                 <input id="delivery_method_other"
                     type="radio"
                     name="delivery_method"
@@ -51,7 +51,9 @@
         </h4>
 
         <div t-attf-class="field-friend_name {{field_class}}">
-            <label for="friend_name">Friend Name</label>
+            <label for="friend_name" t-attf-class="{{label_class}}">
+                Friend Name
+            </label>
             <input id="friend_name"
                 t-att-class="input_class"
                 type="text"
@@ -62,7 +64,9 @@
         </div>
 
         <div t-attf-class="field-friend_street {{field_class}}">
-            <label for="friend_street">Friend Address</label>
+            <label for="friend_street" t-attf-class="{{label_class}}">
+                Friend Address
+            </label>
             <input id="friend_street"
                 t-att-class="input_class"
                 type="text"
@@ -72,7 +76,9 @@
         </div>
 
         <div t-attf-class="field-friend_zip_code {{field_class}}">
-            <label for="friend_zip_code">Friend Zip / Postal Code</label>
+            <label for="friend_zip_code" t-attf-class="{{label_class}}">
+                Friend Zip / Postal Code
+            </label>
             <input id="friend_zip_code"
                 t-att-class="input_class"
                 type="text"
@@ -82,7 +88,9 @@
         </div>
 
         <div t-attf-class="field-friend_city {{field_class}}">
-            <label for="friend_city">Friend City</label>
+            <label for="friend_city" t-attf-class="{{label_class}}">
+                Friend City
+            </label>
             <input id="friend_city"
                 t-att-class="input_class"
                 type="text"
@@ -92,7 +100,9 @@
         </div>
 
         <div t-attf-class="field-friend_country_id {{field_class}}">
-            <label for="friend_country_id">Country</label>
+            <label for="friend_country_id" t-attf-class="{{label_class}}">
+                Friend Country
+            </label>
             <select id="friend_country_id"
                 t-att-class="input_class"
                 name="friend_country_id"
@@ -133,6 +143,22 @@
                 </form>
             </div>
         </t>
+    </template>
+
+
+    <template id="become_subscriber_delivery_part"
+        name="Become Subscriber Delivery Part"
+        inherit_id="website_product_subscription.becomesubscriber">
+        <xpath expr="//div[@name='delivery_info']" position="after">
+            <div name="delivery_method_info" class="oe_delivery_method_info">
+                <h3 class="energie">Delivery Method</h3>
+                <t t-call="medor_custom.delivery_fields">
+                    <t t-set="field_class" t-value="'form-group col-lg-12'"/>
+                    <t t-set="input_class" t-value="'form-control'"/>
+                    <t t-set="title_class" t-value="'col-lg-12'"/>
+                </t>
+            </div>
+        </xpath>
     </template>
 
 </odoo>
