@@ -97,7 +97,6 @@
                                 <div class="alert alert-success">
                                     Your subscription has been successfully registered.
                                     Check your emails for instructions to set your password.
-                                    <button type="button" class="close" data-dismiss="alert">&amp;times;</button>
                                 </div>
                                 <ul class="list-unstyled">
                                     <li>
