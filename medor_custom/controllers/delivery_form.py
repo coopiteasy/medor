@@ -85,6 +85,16 @@ class DeliveryForm():
                     )
                 else:
                     self.qcontext['delivery_method'] = 'me'
+        else:
+            if 'delivery_method' not in self.qcontext or force:
+                self.qcontext['delivery_method'] = 'me'
+            if 'friend_country_id' not in self.qcontext or force:
+                self.qcontext['friend_country_id'] = (
+                    request
+                    .env['res.company']
+                    ._company_default_get()
+                    .country_id.id
+                )
 
     @property
     def friend_address_fields(self):
