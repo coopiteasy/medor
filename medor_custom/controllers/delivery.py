@@ -15,7 +15,7 @@ from openerp.addons.medor_custom.controllers.delivery_form import DeliveryForm
 class MedorDelivery(http.Controller):
 
     @http.route(
-        '/edit/delivery',
+        '/edit/delivery_method',
         type='http',
         auth='user',
         website=True
