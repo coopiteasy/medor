@@ -27,7 +27,8 @@ class TrialSubscription(http.Controller):
     def get_trial_subscription_form(self):
         return request.website.render(_MC_TRIAL_TEMPLATE)
 
-    @http.route('/trial_subscription/subscribe',
+    @http.route(['/trial_subscription/subscribe',
+                 '/new/subscription/trial'],
                 type='http',
                 auth='public',
                 website=True)
