@@ -13,7 +13,7 @@
 
     <template id="delivery_fields" name="Delivery form fields">
 
-        <div t-attf-class="field-delivery_method_me {{field_class}}">
+        <div t-attf-class="field-delivery_method_me {{radio_class}}">
             <label for="delivery_method_me" t-attf-class="{{label_class}}">
                 <input id="delivery_method_me"
                     type="radio"
@@ -24,7 +24,7 @@
             </label>
         </div>
 
-        <div t-attf-class="field-delivery_method_friend {{field_class}}">
+        <div t-attf-class="field-delivery_method_friend {{radio_class}}">
             <label for="delivery_method_friend" t-attf-class="{{label_class}}">
                 <input id="delivery_method_friend"
                     type="radio"
@@ -35,7 +35,7 @@
             </label>
         </div>
 
-        <div t-attf-class="field-delivery_method_other {{field_class}}">
+        <div t-attf-class="field-delivery_method_other {{radio_class}}">
             <label for="delivery_method_other" t-attf-class="{{label_class}}">
                 <input id="delivery_method_other"
                     type="radio"
@@ -146,14 +146,15 @@
     </template>
 
 
-    <template id="become_subscriber_delivery_part"
-        name="Become Subscriber Delivery Part"
-        inherit_id="website_product_subscription.becomesubscriber">
+    <template id="subscribe_form_delivery_method_part"
+        name="Subscribe Form Delivery Method Part"
+        inherit_id="website_product_subscription.subscribe_form">
         <xpath expr="//div[@name='delivery_info']" position="after">
-            <div name="delivery_method_info" class="oe_delivery_method_info">
-                <h3 class="energie">Delivery Method</h3>
+            <div name="delivery_method_info">
+                <h3 class="col-lg-12">Delivery Method</h3>
                 <t t-call="medor_custom.delivery_fields">
-                    <t t-set="field_class" t-value="'form-group col-lg-12'"/>
+                    <t t-set="field_class" t-value="'form-group col-lg-6'"/>
+                    <t t-set="radio_class" t-value="'form-group col-lg-12'"/>
                     <t t-set="input_class" t-value="'form-control'"/>
                     <t t-set="title_class" t-value="'col-lg-12'"/>
                 </t>
