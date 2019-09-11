@@ -72,17 +72,15 @@ class DeliveryForm():
         Populate qcontext with the default value for the form. If user
         is set the default values are values of the user.
         """
-        if self.user:
-            if self.user.parent_id and self.user.type == 'representative':
-                user = self.user.parent_id
-            else:
-                user = self.user
-            friend_address = None
-            for partner in user.child_ids:
-                if partner.type == 'delivery':
-                    friend_address = partner
+        sub = None
+        if self.qcontext['delivery_subscriptions']:
+            sub = self.qcontext['delivery_subscriptions'][0]
+            self.qcontext['delivery_subscription'] = sub.id
+        if self.user and sub:
             if 'delivery_method' not in self.qcontext or force:
-                if friend_address:
+                # TODO: if sub.subscriber == suspended gay.
+                if sub.subscriber != sub.request.webaccess:
+                    friend_address = sub.subscriber
                     self.qcontext['delivery_method'] = 'friend'
                     if 'friend_country_id' not in self.qcontext or force:
                         self.qcontext['friend_country_id'] = (
