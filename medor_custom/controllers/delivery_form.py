@@ -50,8 +50,21 @@ class DeliveryForm():
         See also set_form_defaults to set default value to each fields
         of the form.
         """
+        subs = []
+        if self.user:
+            reqs = (
+                request.env['product.subscription.request']
+                .sudo()
+                .search([('webaccess', '=', self.user.partner_id.id)])
+            )
+            subs = (
+                request.env['product.subscription.object']
+                .sudo()
+                .search([('request', '=', reqs.ids)])
+            )
         self.qcontext.update({
             'countries': request.env['res.country'].sudo().search([]),
+            'delivery_subscriptions': subs,
         })
 
     def set_form_defaults(self, force=False):
