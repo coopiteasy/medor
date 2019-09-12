@@ -81,7 +81,7 @@ class UserForm():
                     self.qcontext['company_name'] = self.user.parent_id.name
                 if 'invoice_address' not in self.qcontext or force:
                     inv_add = False
-                    for partner in self.user.parent_id.child_ids:
+                    for partner in self.user.child_ids:
                         if partner.type == 'invoice':
                             inv_add = partner
                     self.qcontext['invoice_address'] = bool(inv_add)
