@@ -34,12 +34,12 @@ class MedorWebsiteProductSubscription(http.Controller):
             user.write(values)
             if user.parent_id:
                 # company
-                representative = user.parent_id
-                representative.write({
+                company = user.parent_id
+                company.write({
                     'name': request.params['company_name'],
                 })
                 try:
-                    representative.vat = request.params['vat']
+                    user.vat = request.params['vat']
                 except ValidationError as err:
                     request.params['error'] = err.name
                 if request.params.get('invoice_address', False):
@@ -49,6 +49,8 @@ class MedorWebsiteProductSubscription(http.Controller):
                         if key in form.user_inv_fields
                     }
                     self.modify_invoice_address(user, values)
+                else:
+                    self.delete_invoice_address(user)
             if 'error' not in request.params:
                 return request.redirect(request.params.get('redirect', ''))
         return request.website.render(
@@ -57,9 +59,18 @@ class MedorWebsiteProductSubscription(http.Controller):
 
     def modify_invoice_address(self, user, values):
         """Write values to the invoice address of the given user."""
-        partner = user
-        if user.child_ids:
-            for address in user.child_ids:
-                if address.type == 'invoice':
-                    partner = address
-        return partner.write(values)
+        partner = None
+        for address in user.child_ids:
+            if address.type == 'invoice':
+                partner = address
+        if partner:
+            partner.write(values)
+        else:
+            values.update({'type': 'invoice'})
+            user.write({'child_ids': [(0, 0, values)]})
+
+    def delete_invoice_address(self, user):
+        """Delete invoice address of the given user."""
+        for address in user.child_ids:
+            if address.type == 'invoice':
+                address.active = False
