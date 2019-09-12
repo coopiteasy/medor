@@ -200,6 +200,10 @@
                         <t t-esc="error"/>
                     </p>
                     <div class="col-lg-12 text-center oe_send_button">
+                        <a t-if="redirect" t-att-href="redirect"
+                            class="btn btn-default">
+                            Back
+                        </a>
                         <button type="submit" class="btn btn-primary">
                             Send
                         </button>
