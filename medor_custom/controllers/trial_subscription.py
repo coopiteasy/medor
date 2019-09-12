@@ -20,15 +20,15 @@ class TrialSubscription(http.Controller):
         sudo_users.with_context({'create_user': True}).action_reset_password()
         return user_id
 
-    @http.route('/trial_subscription',
+    @http.route(['/trial_subscription',
+                 '/new/subscription/trial'],
                 type='http',
                 auth='public',
                 website=True)
     def get_trial_subscription_form(self):
         return request.website.render(_MC_TRIAL_TEMPLATE)
 
-    @http.route(['/trial_subscription/subscribe',
-                 '/new/subscription/trial'],
+    @http.route('/trial_subscription/subscribe',
                 type='http',
                 auth='public',
                 website=True)
