@@ -79,20 +79,25 @@ class UserForm():
             if self.user.parent_id:
                 if 'company_name' not in self.qcontext or force:
                     self.qcontext['company_name'] = self.user.parent_id.name
+                if 'vat' not in self.qcontext or force:
+                    self.qcontext['vat'] = self.user.vat
                 if 'invoice_address' not in self.qcontext or force:
                     inv_add = False
                     for partner in self.user.child_ids:
                         if partner.type == 'invoice':
                             inv_add = partner
                     self.qcontext['invoice_address'] = bool(inv_add)
-                    if 'inv_country_id' not in self.qcontext or force:
-                        self.qcontext['inv_country_id'] = (
-                            inv_add.country_id.id
+                    if inv_add:
+                        if 'inv_country_id' not in self.qcontext or force:
+                            self.qcontext['inv_country_id'] = (
+                                inv_add.country_id.id
+                            )
+                        for key in self.user_inv_fields:
+                            if key not in self.qcontext or force:
+                                self.qcontext[key] = getattr(inv_add, key[4:])
+                        self.qcontext['inv_zip_code'] = (
+                            self.qcontext['inv_zip']
                         )
-                    for key in self.user_inv_fields:
-                        if key not in self.qcontext or force:
-                            self.qcontext[key] = getattr(inv_add, key[4:])
-                    self.qcontext['inv_zip_code'] = self.qcontext['inv_zip']
             if 'country_id' not in self.qcontext or force:
                 self.qcontext['country_id'] = self.user.country_id.id
             for key in self.user_fields:

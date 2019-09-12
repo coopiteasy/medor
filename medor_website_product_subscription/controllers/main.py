@@ -22,7 +22,8 @@ class MedorWebsiteProductSubscription(http.Controller):
         form.normalize_form_data()
         form.validate_form()
         form.init_form_data()
-        form.set_form_defaults()
+        if not request.httprequest.method == 'POST':
+            form.set_form_defaults()
         if ('error' not in request.params
                 and request.httprequest.method == 'POST'):
             # representative
@@ -73,4 +74,4 @@ class MedorWebsiteProductSubscription(http.Controller):
         """Delete invoice address of the given user."""
         for address in user.child_ids:
             if address.type == 'invoice':
-                address.active = False
+                address.unlink()
