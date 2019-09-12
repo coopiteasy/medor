@@ -31,6 +31,7 @@
         'website_product_subscription_mollie_payment',
         'website_product_subscription_online_payment',
         'l10n_be_invoice_bba',
+        'product_subscription_mass_mailing',
     ],
 
     'data': [
