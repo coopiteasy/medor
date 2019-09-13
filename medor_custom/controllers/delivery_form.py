@@ -35,6 +35,10 @@ class DeliveryForm():
             self.qcontext['friend_country_id'] = int(
                 self.qcontext['friend_country_id']
             )
+        if 'delivery_subscription' in self.qcontext:
+            self.qcontext['delivery_subscription'] = int(
+                self.qcontext['delivery_subscription']
+            )
 
     def validate_form(self):
         """

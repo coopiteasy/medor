@@ -35,6 +35,7 @@
             </label>
         </div>
 
+        <!-- Hide for the moment
         <div t-attf-class="field-delivery_method_other {{radio_class}}">
             <label for="delivery_method_other" t-attf-class="{{label_class}}">
                 <input id="delivery_method_other"
@@ -45,6 +46,7 @@
                 Deliver to someone else
             </label>
         </div>
+        -->
 
         <h4 t-attf-class="title-friend {{title_class}}">
             Friend Shipping Address
