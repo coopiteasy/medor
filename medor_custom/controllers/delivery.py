@@ -27,8 +27,8 @@ class MedorDelivery(http.Controller):
         form = self.delivery_form_validation()
         if ('error' not in request.params
                 and request.httprequest.method == 'POST'):
+            sub = sub_obj.sudo().browse(self.qcontext['delivery_subscription'])
             if request.params['delivery_method'] == 'me':
-                sub = sub_obj.sudo().browse(request.params['subscription'])
                 sub.subscriber = user.partner_id
             elif request.params['delivery_method'] == 'friend':
                 values = {
@@ -36,8 +36,11 @@ class MedorDelivery(http.Controller):
                     for key in request.params
                     if key in form.friend_address_fields
                 }
-                friend = partner_obj.create(values)
-                sub.subscriber = friend
+                if sub.subscriber != sub.request.websubscriber:
+                    sub.subscriber.write(values)
+                else:
+                    friend = partner_obj.create(values)
+                    sub.subscriber = friend
             else:
                 # TODO: Need reference to unknow user.
                 pass
@@ -54,6 +57,7 @@ class MedorDelivery(http.Controller):
         form = DeliveryForm(request.params, user=user)
         form.normalize_form_data()
         form.validate_form()
-        form.init_form_data()
-        form.set_form_defaults()
+        if request.httprequest.method == 'GET':
+            form.init_form_data()
+            form.set_form_defaults()
         return form
