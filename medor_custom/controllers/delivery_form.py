@@ -15,6 +15,7 @@ class DeliveryForm():
         # Copy reference. Qcontext will be modified in place.
         self.qcontext = qcontext
         self.user = user
+        self.delivery_subscription_selection = True
 
     def normalize_form_data(self):
         """
@@ -70,7 +71,7 @@ class DeliveryForm():
                     ('request', 'in', reqs.ids),
                 ])
             )
-        if not subs:
+        if self.delivery_subscription_selection and not subs:
             self.qcontext['error'] = _(
                 "No subscription request for your subscription or no "
                 "subscriptions."

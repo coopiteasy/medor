@@ -21,10 +21,12 @@ class MedorSubscribeController(SubscribeController):
         if request.session.uid:
             user = request.env['res.users'].browse(request.session.uid)
         form = DeliveryForm(request.params, user)
+        form.delivery_subscription_selection = False
         form.normalize_form_data()
         form.validate_form()
-        form.init_form_data()
-        form.set_form_defaults()
+        if request.httprequest.method == 'GET':
+            form.init_form_data()
+            form.set_form_defaults()
 
     def process_subscribe_form(self):
         sub_req = super(
