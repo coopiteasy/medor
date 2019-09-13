@@ -57,6 +57,7 @@ class TrialSubscription(http.Controller):
             'template': trial_template.id,
             'counter': 0,
             'subscribed_on': fields.Date.today(),
+            'start_date': fields.Date.today(),
             'state': 'ongoing',
         })
 
