@@ -24,8 +24,8 @@ class MedorSubscribeController(SubscribeController):
         form.delivery_subscription_selection = False
         form.normalize_form_data()
         form.validate_form()
+        form.init_form_data()
         if request.httprequest.method == 'GET':
-            form.init_form_data()
             form.set_form_defaults()
 
     def process_subscribe_form(self):
@@ -41,7 +41,7 @@ class MedorSubscribeController(SubscribeController):
                 for key in params
                 if key in form.friend_address_fields
             }
-            friend = partner_obj.create(values)
+            friend = partner_obj.sudo().create(values)
             params['friend_id'] = friend.id
             sub_req.subscriber = friend.id
         elif params['delivery_method'] == 'other':
