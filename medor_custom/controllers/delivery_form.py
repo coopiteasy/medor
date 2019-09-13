@@ -55,12 +55,20 @@ class DeliveryForm():
             reqs = (
                 request.env['product.subscription.request']
                 .sudo()
-                .search([('webaccess', '=', self.user.partner_id.id)])
+                .search([
+                    '|',
+                    ('webaccess', '=', self.user.partner_id.id),
+                    ('subscriber', '=', self.user.partner_id.id),
+                ])
             )
             subs = (
                 request.env['product.subscription.object']
                 .sudo()
-                .search([('request', '=', reqs.ids)])
+                .search([
+                    '|',
+                    ('request', 'in', reqs.ids),
+                    ('subscriber', '=', self.user.partner_id.id),
+                ])
             )
         self.qcontext.update({
             'countries': request.env['res.country'].sudo().search([]),
