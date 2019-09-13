@@ -44,7 +44,7 @@ class TrialSubscription(http.Controller):
             'lastname': kwargs.get('lastname').upper(),
             'email': kwargs.get('email'),
         }
-        subscriber = request.env['res.partner'].create(values)
+        subscriber = request.env['res.partner'].sudo().create(values)
 
         self.create_user({
             'login': subscriber.email,
@@ -52,7 +52,7 @@ class TrialSubscription(http.Controller):
         })
 
         trial_template = request.env.ref('medor_custom.data_medor_trial_subscription_trial')
-        request.env['product.subscription.object'].create({
+        request.env['product.subscription.object'].sudo().create({
             'subscriber': subscriber.id,
             'template': trial_template.id,
             'counter': 0,
