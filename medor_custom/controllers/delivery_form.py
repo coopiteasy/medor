@@ -56,19 +56,20 @@ class DeliveryForm():
                 request.env['product.subscription.request']
                 .sudo()
                 .search([
-                    '|',
-                    ('webaccess', '=', self.user.partner_id.id),
-                    ('subscriber', '=', self.user.partner_id.id),
+                    ('websubscriber', '=', self.user.partner_id.id),
                 ])
             )
             subs = (
                 request.env['product.subscription.object']
                 .sudo()
                 .search([
-                    '|',
                     ('request', 'in', reqs.ids),
-                    ('subscriber', '=', self.user.partner_id.id),
                 ])
+            )
+        if not subs:
+            self.qcontext['error'] = _(
+                "No subscription request for your subscription or no "
+                "subscriptions."
             )
         self.qcontext.update({
             'countries': request.env['res.country'].sudo().search([]),
@@ -87,7 +88,7 @@ class DeliveryForm():
         if self.user and sub:
             if 'delivery_method' not in self.qcontext or force:
                 # TODO: if sub.subscriber == suspended gay.
-                if sub.subscriber != sub.request.webaccess:
+                if sub.subscriber != sub.request.websubscriber:
                     friend_address = sub.subscriber
                     self.qcontext['delivery_method'] = 'friend'
                     if 'friend_country_id' not in self.qcontext or force:
