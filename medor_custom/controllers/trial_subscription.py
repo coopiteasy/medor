@@ -14,12 +14,6 @@ _MC_TRIAL_TEMPLATE = 'medor_custom.template_trial_subscription'
 
 class TrialSubscription(http.Controller):
 
-    def create_user(self, user_values):
-        sudo_users = request.env['res.users'].sudo()
-        user_id = sudo_users._signup_create_user(user_values)
-        sudo_users.with_context({'create_user': True}).action_reset_password()
-        return user_id
-
     @http.route(['/trial_subscription',
                  '/new/subscription/trial'],
                 type='http',
@@ -35,6 +29,7 @@ class TrialSubscription(http.Controller):
                 auth='public',
                 website=True)
     def subscribe_trial_subscription(self, **kwargs):
+        user_obj = request.env['res.users']
         utils.generic_form_checks(
             request=request,
             template='',
@@ -48,7 +43,7 @@ class TrialSubscription(http.Controller):
         }
         subscriber = request.env['res.partner'].sudo().create(values)
 
-        self.create_user({
+        user_obj.create_user({
             'login': subscriber.email,
             'partner_id': subscriber.id,
         })
