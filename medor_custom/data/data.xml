@@ -73,5 +73,19 @@
             <field name="journal" ref="data_medor_free_trial_journal"/>
         </record>
 
+        <record id="subscription_fix_historical_subscription_start_date_cron" model="ir.cron">
+            <field name="name">Product Subscription: fix old subscription start date. Slow process.
+                               Don't execute after renewal subscriptions have been submitted.</field>
+            <field name="active" eval="False"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model">product.subscription.object</field>
+            <field name="function">cron_fix_historical_subscription_start_date</field>
+            <field name="args">()</field>
+        </record>
+
     </data>
 </odoo>
