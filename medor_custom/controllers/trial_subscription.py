@@ -50,7 +50,7 @@ class TrialSubscription(http.Controller):
 
         if not user_obj.user_exist(sub_email):
             user_obj.create_user({
-                'login': subscriber.email,
+                'login': sub_email,
                 'partner_id': subscriber.id,
             })
 
