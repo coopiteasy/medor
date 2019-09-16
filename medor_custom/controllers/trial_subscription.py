@@ -30,23 +30,29 @@ class TrialSubscription(http.Controller):
                 website=True)
     def subscribe_trial_subscription(self, **kwargs):
         user_obj = request.env['res.users']
+        partner_obj = request.env['res.partner']
         utils.generic_form_checks(
             request=request,
             template='',
             **kwargs
         )
 
+        sub_email = kwargs.get('email')
         values = {
             'firstname': kwargs.get('firstname').title(),
             'lastname': kwargs.get('lastname').upper(),
-            'email': kwargs.get('email'),
+            'email': sub_email,
         }
-        subscriber = request.env['res.partner'].sudo().create(values)
 
-        user_obj.create_user({
-            'login': subscriber.email,
-            'partner_id': subscriber.id,
-        })
+        subscriber = partner_obj.sudo().search([('email', '=', sub_email)])
+        if subscriber:
+            subscriber = partner_obj.sudo().create(values)
+
+        if not user_obj.user_exist(subscriber.email):
+            user_obj.create_user({
+                'login': subscriber.email,
+                'partner_id': subscriber.id,
+            })
 
         trial_template = request.env.ref('medor_custom.data_medor_trial_subscription_trial')
         request.env['product.subscription.object'].sudo().create({
@@ -67,4 +73,3 @@ class TrialSubscription(http.Controller):
                 '_kwargs': kwargs,
             }
         )
-
