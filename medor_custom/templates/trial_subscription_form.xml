@@ -98,6 +98,13 @@
                                     Your subscription has been successfully registered.
                                     Check your emails for instructions to set your password.
                                 </div>
+                                <div t-if="redirect_trial"
+                                    class="oe_return_button">
+                                    <a class="btn btn-primary"
+                                        t-att-href="redirect_trial">
+                                        Back
+                                    </a>
+                                </div>
                                 <ul class="list-unstyled">
                                     <li>
                                         <i class="fa fa-phone" />

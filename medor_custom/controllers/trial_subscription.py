@@ -21,7 +21,7 @@ class TrialSubscription(http.Controller):
                 website=True)
     def get_trial_subscription_form(self, **kwargs):
         if 'redirect' in kwargs:
-            request.session['redirect_'] = kwargs.get('redirect')
+            request.session['redirect_trial'] = kwargs.get('redirect')
         return request.website.render(_MC_TRIAL_TEMPLATE)
 
     @http.route('/trial_subscription/subscribe',
@@ -64,12 +64,12 @@ class TrialSubscription(http.Controller):
             'state': 'ongoing',
         })
 
-        if 'redirect_' in request.session:
-            return request.redirect(request.session['redirect_'])
+        redirect_trial = request.session.get('redirect_trial', '')
         return request.website.render(
             "medor_custom.template_trial_subscription_thanks",
             {
                 '_values': values,
                 '_kwargs': kwargs,
+                'redirect_trial': redirect_trial,
             }
         )
