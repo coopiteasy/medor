@@ -37,3 +37,19 @@ select id, name, template, request
 from product_subscription_object
 where state = 'ongoing'
 limit 100
+;
+
+-- update start date for historical users
+update product_subscription_object
+set start_date = data_table.subscription_date
+from (
+         select pso.id as subscription_id,
+                pso.name,
+                pso.start_date,
+                psr.subscription_date
+         from product_subscription_object pso
+                  join product_subscription_request psr
+                       on pso.id = psr.subscription
+     ) data_table
+where id = subscription_id
+;
