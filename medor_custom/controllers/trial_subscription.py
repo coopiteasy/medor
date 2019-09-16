@@ -45,7 +45,7 @@ class TrialSubscription(http.Controller):
         }
 
         subscriber = partner_obj.sudo().search([('email', '=', sub_email)])
-        if subscriber:
+        if not subscriber:
             subscriber = partner_obj.sudo().create(values)
 
         if not user_obj.user_exist(sub_email):
