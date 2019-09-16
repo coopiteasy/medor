@@ -14,12 +14,6 @@ _MC_TRIAL_TEMPLATE = 'medor_custom.template_trial_subscription'
 
 class TrialSubscription(http.Controller):
 
-    def create_user(self, user_values):
-        sudo_users = request.env['res.users'].sudo()
-        user_id = sudo_users._signup_create_user(user_values)
-        sudo_users.with_context({'create_user': True}).action_reset_password()
-        return user_id
-
     @http.route(['/trial_subscription',
                  '/new/subscription/trial'],
                 type='http',
@@ -27,7 +21,7 @@ class TrialSubscription(http.Controller):
                 website=True)
     def get_trial_subscription_form(self, **kwargs):
         if 'redirect' in kwargs:
-            request.session['redirect_'] = kwargs.get('redirect')
+            request.session['redirect_trial'] = kwargs.get('redirect')
         return request.website.render(_MC_TRIAL_TEMPLATE)
 
     @http.route('/trial_subscription/subscribe',
@@ -35,23 +29,30 @@ class TrialSubscription(http.Controller):
                 auth='public',
                 website=True)
     def subscribe_trial_subscription(self, **kwargs):
+        user_obj = request.env['res.users']
+        partner_obj = request.env['res.partner']
         utils.generic_form_checks(
             request=request,
             template='',
             **kwargs
         )
 
+        sub_email = kwargs.get('email')
         values = {
             'firstname': kwargs.get('firstname').title(),
             'lastname': kwargs.get('lastname').upper(),
-            'email': kwargs.get('email'),
+            'email': sub_email,
         }
-        subscriber = request.env['res.partner'].sudo().create(values)
 
-        self.create_user({
-            'login': subscriber.email,
-            'partner_id': subscriber.id,
-        })
+        subscriber = partner_obj.sudo().search([('email', '=', sub_email)])
+        if not subscriber:
+            subscriber = partner_obj.sudo().create(values)
+
+        if not user_obj.user_exist(sub_email):
+            user_obj.create_user({
+                'login': sub_email,
+                'partner_id': subscriber.id,
+            })
 
         trial_template = request.env.ref('medor_custom.data_medor_trial_subscription_trial')
         request.env['product.subscription.object'].sudo().create({
@@ -63,13 +64,12 @@ class TrialSubscription(http.Controller):
             'state': 'ongoing',
         })
 
-        if 'redirect_' in request.session:
-            return request.redirect(request.session['redirect_'])
+        redirect_trial = request.session.get('redirect_trial', '')
         return request.website.render(
             "medor_custom.template_trial_subscription_thanks",
             {
                 '_values': values,
                 '_kwargs': kwargs,
+                'redirect_trial': redirect_trial,
             }
         )
-
