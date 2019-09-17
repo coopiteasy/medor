@@ -28,7 +28,7 @@ def check_email_not_in_database(request, **kwargs):
         user = request.env['res.users'].sudo().search([('login', '=', kwargs.get('email'))])
         if user:
             return _('There is an existing account for '
-                     'this mail address. Please login '
+                     'this mail address. Please log in '
                      'before fill in the form')
     return None
 
@@ -36,14 +36,15 @@ def check_email_not_in_database(request, **kwargs):
 def generic_form_checks(request, template, **kwargs):
     wrong_recaptcha_error = check_recaptcha(request, **kwargs)
     if wrong_recaptcha_error:
+        kwargs['error_msg'] = wrong_recaptcha_error
         return request.website.render(template, kwargs)
 
     email_missmatch_error = check_email_confirmation_matches(**kwargs)
     if email_missmatch_error:
+        kwargs['error_msg'] = email_missmatch_error
         return request.website.render(template, kwargs)
 
     email_in_db_error = check_email_not_in_database(request, **kwargs)
     if email_in_db_error:
+        kwargs['error_msg'] = email_in_db_error
         return request.website.render(template, kwargs)
-
-

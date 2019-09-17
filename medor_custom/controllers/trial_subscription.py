@@ -31,11 +31,13 @@ class TrialSubscription(http.Controller):
     def subscribe_trial_subscription(self, **kwargs):
         user_obj = request.env['res.users']
         partner_obj = request.env['res.partner']
-        utils.generic_form_checks(
+        error = utils.generic_form_checks(
             request=request,
-            template='',
+            template=_MC_TRIAL_TEMPLATE,
             **kwargs
         )
+        if error:
+            return error
 
         sub_email = kwargs.get('email')
         values = {
