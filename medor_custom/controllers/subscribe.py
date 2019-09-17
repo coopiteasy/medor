@@ -3,10 +3,7 @@
 #   Rémy Taymans <remy@coopiteasy.be>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import http
-from openerp.exceptions import ValidationError
 from openerp.http import request
-from openerp.tools.translate import _
 
 from openerp.addons.website_product_subscription.controllers.subscribe import SubscribeController
 from openerp.addons.medor_custom.controllers.delivery_form import DeliveryForm
