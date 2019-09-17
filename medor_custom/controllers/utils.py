@@ -44,7 +44,7 @@ def generic_form_checks(request, template, **kwargs):
         kwargs['error_msg'] = email_missmatch_error
         return request.website.render(template, kwargs)
 
-    email_in_db_error = check_email_not_in_database(request, **kwargs)
-    if email_in_db_error:
-        kwargs['error_msg'] = email_in_db_error
-        return request.website.render(template, kwargs)
+    # email_in_db_error = check_email_not_in_database(request, **kwargs)
+    # if email_in_db_error:
+    #     kwargs['error_msg'] = email_in_db_error
+    #     return request.website.render(template, kwargs)
