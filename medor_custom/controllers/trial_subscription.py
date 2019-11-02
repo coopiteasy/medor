@@ -3,7 +3,6 @@
 #   Robin Keunen <robin@coopiteasy.be>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-# -*- coding: utf-8 -*-
 from openerp import http
 from openerp.http import request
 from openerp import fields
@@ -22,7 +21,11 @@ class TrialSubscription(http.Controller):
     def get_trial_subscription_form(self, **kwargs):
         if 'redirect' in kwargs:
             request.session['redirect_trial'] = kwargs.get('redirect')
-        return request.website.render(_MC_TRIAL_TEMPLATE)
+
+        company = request.env['res.company'].search([], limit=1)
+        company_condition_text = company.company_condition_text
+        qcontext = {'company_condition_text': company_condition_text}
+        return request.website.render(_MC_TRIAL_TEMPLATE, qcontext)
 
     @http.route('/trial_subscription/subscribe',
                 type='http',
