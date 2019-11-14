@@ -179,7 +179,7 @@
 
     <template id="subscribe_form_delivery_method_part"
         name="Subscribe Form Delivery Method Part"
-        inherit_id="website_product_subscription.subscribe_form">
+        inherit_id="website_product_subscription.new_subscription_basic">
         <xpath expr="//div[@name='delivery_info']" position="after">
             <div name="delivery_method_info">
                 <h3 class="col-lg-12">Delivery Method</h3>

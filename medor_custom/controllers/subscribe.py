@@ -11,9 +11,11 @@ from openerp.addons.medor_custom.controllers.delivery_form import DeliveryForm
 
 class MedorSubscribeController(SubscribeController):
 
-    def subscribe_form_validation(self):
+    def new_subscription_basic_form_validation(self):
         """Execute form check and validation"""
-        super(MedorSubscribeController, self).subscribe_form_validation()
+        super(
+            MedorSubscribeController, self
+        ).new_subscription_basic_form_validation()
         user = None
         if request.session.uid:
             user = request.env['res.users'].browse(request.session.uid)
@@ -25,10 +27,10 @@ class MedorSubscribeController(SubscribeController):
         if request.httprequest.method == 'GET':
             form.set_form_defaults()
 
-    def process_subscribe_form(self):
+    def process_new_subscription_basic_form(self):
         sub_req = super(
             MedorSubscribeController, self
-        ).process_subscribe_form()
+        ).process_new_subscription_basic_form()
         params = request.params
         form = DeliveryForm(None)  # Empty form to access @property
         partner_obj = request.env['res.partner']
