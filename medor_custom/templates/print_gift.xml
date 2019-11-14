@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright 2019 Coop IT Easy SCRLfs (http://coopiteasy.be)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <template id="becomesubscriber_gift"
+        inherit_id="website_product_subscription.becomesubscriber">
+        <xpath expr="//div[hasclass('oe_product_subscription')]//input[@name='gift']/.."
+            position="after">
+            <p class="oe_gift_link">
+                Pour imprimer le bon cadeau, c'est par
+                <a href="https://nuage.medor.coop/s/A84k2ye6ymdQHR3" target="_blank">là</a>.
+            </p>
+        </xpath>
+    </template>
+</odoo>

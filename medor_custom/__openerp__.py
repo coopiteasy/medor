@@ -3,7 +3,7 @@
 #     Rémy Taymans <remy@coopiteasy.be>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
-    'name': 'Medor Website Product Subscription',
+    'name': 'Medor Custom',
 
     'summary': """
         Add Medor specific change to Website Product Subscription.
@@ -27,7 +27,6 @@
         'product_subscription_delivery',
         'product_subscription_web_access',
         'website_product_subscription',
-        'medor_website_product_subscription',
         'website_product_subscription_mollie_payment',
         'website_product_subscription_online_payment',
         'l10n_be_invoice_bba',
@@ -39,8 +38,11 @@
         'security/ir.model.access.csv',
         'data/data.xml',
         'data/medor_api_user.xml',
+        'templates/assets.xml',
         'templates/trial_subscription_form.xml',
         'templates/delivery_templates.xml',
+        'templates/user_templates.xml',
+        'templates/print_gift.xml',
     ],
     'demo': [
         'demo/demo.xml',
