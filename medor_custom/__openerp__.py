@@ -22,7 +22,7 @@
         "product_subscription",
         "product_subscription_delivery",
         "product_subscription_web_access",
-        "website_product_subscription",  #
+        "website_product_subscription",
         "medor_website_product_subscription",
         "website_product_subscription_mollie_payment",
         "website_product_subscription_online_payment",
@@ -36,6 +36,7 @@
         "data/medor_api_user.xml",
         "templates/trial_subscription_form.xml",
         "templates/delivery_templates.xml",
+        "templates/user_form.xml"
     ],
     "demo": ["demo/demo.xml"],
 }

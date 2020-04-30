@@ -8,7 +8,6 @@ from openerp.http import request
 from openerp.tools.translate import _
 
 
-# todo move to medor_custom
 class UserForm:
     def __init__(self, qcontext, user=None):
         # Copy reference. Qcontext will be modified in place.

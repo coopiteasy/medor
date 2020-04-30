@@ -1,18 +1,14 @@
 # -*- coding: utf-8 -*-
 from openerp import http
 from openerp.http import request
-from openerp.tools.translate import _
 
 from openerp.exceptions import ValidationError
 
-from openerp.addons.medor_website_product_subscription.controllers.medor_form import (
-    UserForm,
-)
+from .user_form import UserForm
 
 
-class MedorWebsiteProductSubscription(http.Controller):
+class MedorUserController(http.Controller):
 
-    # todo move to medor_custom
     @http.route("/edit/user/", type="http", auth="user", website=True)
     def user_form(self, **kw):
         user = request.env.user
@@ -53,7 +49,7 @@ class MedorWebsiteProductSubscription(http.Controller):
             if "error" not in request.params:
                 return request.redirect(request.params.get("redirect", ""))
         return request.website.render(
-            "medor_website_product_subscription.user_form", request.params
+            "medor_custom.user_form", request.params
         )
 
     def modify_invoice_address(self, user, values):

@@ -7,7 +7,7 @@
 
     <template id="assets_frontend" inherit_id="website.assets_frontend" name="Form frontend">
         <xpath expr="." position="inside">
-            <script type="text/javascript" src="/medor_website_product_subscription/static/src/js/form.js" />
+            <script type="text/javascript" src="/medor_custom/static/src/js/form.js" />
         </xpath>
     </template>
 
@@ -190,7 +190,7 @@
                 <h3>User Details</h3>
                 <form method="post" class="row">
                     <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                    <t t-call="medor_website_product_subscription.user_fields">
+                    <t t-call="medor_custom.user_fields">
                         <t t-set="field_class" t-value="'form-group col-lg-6'"/>
                         <t t-set="input_class" t-value="'form-control'"/>
                         <t t-set="title_class" t-value="'col-lg-12'"/>
