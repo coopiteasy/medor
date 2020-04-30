@@ -7,12 +7,11 @@ from openerp import models, fields, api
 
 
 class ResPartner(models.Model):
-    _inherit = 'res.partner'
+    _inherit = "res.partner"
 
     @api.model
     def create(self, vals):
-        vals.update({
-            'out_inv_comm_type': 'bba',
-            'out_inv_comm_algorithm': 'random',
-        })
+        vals.update(
+            {"out_inv_comm_type": "bba", "out_inv_comm_algorithm": "random"}
+        )
         return super(ResPartner, self).create(vals)

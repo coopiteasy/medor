@@ -8,42 +8,40 @@ import json
 
 
 class ResCompany(models.Model):
-    _inherit = 'res.company'
+    _inherit = "res.company"
 
     nb_subscribers = fields.Integer(
-        string='Nb Subscribers',
-        compute='_compute_company_data')
+        string="Nb Subscribers", compute="_compute_company_data"
+    )
     nb_cooperators = fields.Integer(
-        string='Nb Cooperators',
-        compute='_compute_company_data')
+        string="Nb Cooperators", compute="_compute_company_data"
+    )
 
     @api.multi
     def _compute_company_data(self):
         for company in self:
             subscribers = (
-                self.env['res.partner']
-                    .sudo()
-                    .search([('subscriber', '=', True)])
+                self.env["res.partner"]
+                .sudo()
+                .search([("subscriber", "=", True)])
             )
             company.nb_subscribers = len(subscribers)
 
             cooperators = (
-                self.env['res.partner']
-                    .sudo()
-                    .search([('member', '=', True)])
+                self.env["res.partner"].sudo().search([("member", "=", True)])
             )
             company.nb_cooperators = len(cooperators)
 
     @api.model
     def get_deposit_point(self):
-        deposit_points = (
-            self.env['res.partner']
-                .search([('deposit_point', '=', True)])
+        deposit_points = self.env["res.partner"].search(
+            [("deposit_point", "=", True)]
         )
 
-        data = [{
-            'name': dp.name,
-            'address': dp._display_address(dp)
-        } for dp in deposit_points if dp.name]
+        data = [
+            {"name": dp.name, "address": dp._display_address(dp)}
+            for dp in deposit_points
+            if dp.name
+        ]
 
-        return json.dumps({'deposit_points': data})
+        return json.dumps({"deposit_points": data})
