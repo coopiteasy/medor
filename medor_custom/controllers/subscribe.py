@@ -14,9 +14,7 @@ from openerp.addons.medor_custom.controllers.delivery_form import DeliveryForm
 class MedorSubscribeController(SubscribeController):
     def validate_form(self):
         """Execute form check and validation"""
-        super(
-            MedorSubscribeController, self
-        ).validate_form()
+        super(MedorSubscribeController, self).validate_form()
         user = None
         if request.session.uid:
             user = request.env["res.users"].browse(request.session.uid)
@@ -29,9 +27,7 @@ class MedorSubscribeController(SubscribeController):
             form.set_form_defaults()
 
     def process_basic_form(self):
-        sub_req = super(
-            MedorSubscribeController, self
-        ).process_basic_form()
+        sub_req = super(MedorSubscribeController, self).process_basic_form()
         params = request.params
         form = DeliveryForm(None)  # Empty form to access @property
         partner_obj = request.env["res.partner"]

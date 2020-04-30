@@ -8,7 +8,6 @@ from .user_form import UserForm
 
 
 class MedorUserController(http.Controller):
-
     @http.route("/edit/user/", type="http", auth="user", website=True)
     def user_form(self, **kw):
         user = request.env.user
@@ -48,9 +47,7 @@ class MedorUserController(http.Controller):
                     self.delete_invoice_address(user)
             if "error" not in request.params:
                 return request.redirect(request.params.get("redirect", ""))
-        return request.website.render(
-            "medor_custom.user_form", request.params
-        )
+        return request.website.render("medor_custom.user_form", request.params)
 
     def modify_invoice_address(self, user, values):
         """Write values to the invoice address of the given user."""
