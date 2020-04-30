@@ -15,6 +15,7 @@
     "category": "Website",
     "version": "9.0.1.0",
     "depends": [
+        "l10n_be",
         "oauth_provider",
         "easy_my_coop",
         "delivery_distribution_list",
