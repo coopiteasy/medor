@@ -31,19 +31,37 @@ class ResUsers(models.Model):
             )
 
         subscriptions = partner.subscriptions.filtered(
-            lambda s: s.state in ["renew", "ongoing"]
+            lambda s: s.state in ["renew", "ongoing", "terminated"]
         )
 
         if subscriptions:
-            first = subscriptions.sorted(lambda s: s.start_date)[0]
-            last = subscriptions.sorted(lambda s: s.end_date, reverse=True)[0]
+            today = fields.Date.today()
+
+            current_subscriptions = subscriptions.filtered(
+                lambda s: s.start_date <= today <= s.end_date
+            )
+
+            if current_subscriptions:
+                current_subscription = current_subscriptions.sorted(
+                    lambda s: s.end_date, reverse=True
+                )[0]
+                start_date = current_subscription.start_date
+                end_date = current_subscription.end_date
+                name = current_subscription.template.name
+            else:
+                last_subscription = subscriptions.sorted(
+                    lambda s: s.end_date, reverse=True
+                )[0]
+                start_date = last_subscription.start_date
+                end_date = last_subscription.end_date
+                name = last_subscription.template.name
 
             return json.dumps(
                 {
                     "id": user_id,
-                    "start": first.start_date,
-                    "end": last.end_date,
-                    "subscription": first.template.name,
+                    "start": start_date,
+                    "end": end_date,
+                    "subscription": name,
                     "subscribed": partner.is_web_subscribed,
                 }
             )
