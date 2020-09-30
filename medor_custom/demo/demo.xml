@@ -4,7 +4,7 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
 <odoo>
-    <data noupdate="0">  <!-- fixme -->
+    <data noupdate="1">
 
         <record id="product_subscription.demo_subscriber_3" model="res.partner">  <!-- C2C -->
             <field name="deposit_point" eval="True"/>

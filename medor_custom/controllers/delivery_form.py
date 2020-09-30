@@ -3,14 +3,11 @@
 #   Rémy Taymans <remy@coopiteasy.be>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import tools
-from openerp.exceptions import ValidationError
 from openerp.http import request
 from openerp.tools.translate import _
 
 
-class DeliveryForm():
-
+class DeliveryForm:
     def __init__(self, qcontext, user=None):
         # Copy reference. Qcontext will be modified in place.
         self.qcontext = qcontext
@@ -25,20 +22,20 @@ class DeliveryForm():
         # standard class of python. So we converted it into 'zip_code'
         # As this happens only in template, we can continue to use 'zip'
         # in the controller.
-        if 'friend_zip_code' in self.qcontext:
-            self.qcontext['friend_zip'] = self.qcontext['friend_zip_code']
+        if "friend_zip_code" in self.qcontext:
+            self.qcontext["friend_zip"] = self.qcontext["friend_zip_code"]
         # Strip all str values
         for key, val in self.qcontext.items():
             if isinstance(val, str):
                 self.qcontext[key] = val.strip()
         # Convert to int when needed
-        if 'friend_country_id' in self.qcontext:
-            self.qcontext['friend_country_id'] = int(
-                self.qcontext['friend_country_id']
+        if "friend_country_id" in self.qcontext:
+            self.qcontext["friend_country_id"] = int(
+                self.qcontext["friend_country_id"]
             )
-        if 'delivery_subscription' in self.qcontext:
-            self.qcontext['delivery_subscription'] = int(
-                self.qcontext['delivery_subscription']
+        if "delivery_subscription" in self.qcontext:
+            self.qcontext["delivery_subscription"] = int(
+                self.qcontext["delivery_subscription"]
             )
 
     def validate_form(self):
@@ -58,28 +55,26 @@ class DeliveryForm():
         subs = []
         if self.user:
             reqs = (
-                request.env['product.subscription.request']
+                request.env["product.subscription.request"]
                 .sudo()
-                .search([
-                    ('websubscriber', '=', self.user.partner_id.id),
-                ])
+                .search([("websubscriber", "=", self.user.partner_id.id)])
             )
             subs = (
-                request.env['product.subscription.object']
+                request.env["product.subscription.object"]
                 .sudo()
-                .search([
-                    ('request', 'in', reqs.ids),
-                ])
+                .search([("request", "in", reqs.ids)])
             )
         if self.delivery_subscription_selection and not subs:
-            self.qcontext['error'] = _(
+            self.qcontext["error"] = _(
                 "No subscription request for your subscription or no "
                 "subscriptions."
             )
-        self.qcontext.update({
-            'countries': request.env['res.country'].sudo().search([]),
-            'delivery_subscriptions': subs,
-        })
+        self.qcontext.update(
+            {
+                "countries": request.env["res.country"].sudo().search([]),
+                "delivery_subscriptions": subs,
+            }
+        )
 
     def set_form_defaults(self, force=False):
         """
@@ -87,36 +82,35 @@ class DeliveryForm():
         is set the default values are values of the user.
         """
         sub = None
-        if self.qcontext['delivery_subscriptions']:
-            sub = self.qcontext['delivery_subscriptions'][0]
-            self.qcontext['delivery_subscription'] = sub.id
+        if self.qcontext["delivery_subscriptions"]:
+            sub = self.qcontext["delivery_subscriptions"][0]
+            self.qcontext["delivery_subscription"] = sub.id
         if self.user and sub:
-            if 'delivery_method' not in self.qcontext or force:
+            if "delivery_method" not in self.qcontext or force:
                 # TODO: if sub.subscriber == suspended gay.
                 if sub.subscriber != sub.request.websubscriber:
                     friend_address = sub.subscriber
-                    self.qcontext['delivery_method'] = 'friend'
-                    if 'friend_country_id' not in self.qcontext or force:
-                        self.qcontext['friend_country_id'] = (
-                            friend_address.country_id.id
-                        )
+                    self.qcontext["delivery_method"] = "friend"
+                    if "friend_country_id" not in self.qcontext or force:
+                        self.qcontext[
+                            "friend_country_id"
+                        ] = friend_address.country_id.id
                     for key in self.friend_address_fields:
                         if key not in self.qcontext or force:
                             self.qcontext[key] = getattr(
                                 friend_address, key[7:]
                             )
-                    self.qcontext['friend_zip_code'] = (
-                        self.qcontext['friend_zip']
-                    )
+                    self.qcontext["friend_zip_code"] = self.qcontext[
+                        "friend_zip"
+                    ]
                 else:
-                    self.qcontext['delivery_method'] = 'me'
+                    self.qcontext["delivery_method"] = "me"
         else:
-            if 'delivery_method' not in self.qcontext or force:
-                self.qcontext['delivery_method'] = 'me'
-            if 'friend_country_id' not in self.qcontext or force:
-                self.qcontext['friend_country_id'] = (
-                    request
-                    .env['res.company']
+            if "delivery_method" not in self.qcontext or force:
+                self.qcontext["delivery_method"] = "me"
+            if "friend_country_id" not in self.qcontext or force:
+                self.qcontext["friend_country_id"] = (
+                    request.env["res.company"]
                     ._company_default_get()
                     .country_id.id
                 )
@@ -128,9 +122,9 @@ class DeliveryForm():
         form.
         """
         return [
-            'friend_name',
-            'friend_street',
-            'friend_zip',
-            'friend_city',
-            'friend_country_id',
+            "friend_name",
+            "friend_street",
+            "friend_zip",
+            "friend_city",
+            "friend_country_id",
         ]

@@ -5,34 +5,28 @@
 
 from openerp import http
 from openerp.http import request
-from openerp.tools.translate import _
-
-from openerp.exceptions import ValidationError
-
 from openerp.addons.medor_custom.controllers.delivery_form import DeliveryForm
 
 
 class MedorDelivery(http.Controller):
-
     @http.route(
-        '/edit/delivery_method',
-        type='http',
-        auth='user',
-        website=True
+        "/edit/delivery_method", type="http", auth="user", website=True
     )
     def delivery_form(self, **kw):
         user = request.env.user
-        sub_obj = request.env['product.subscription.object']
-        partner_obj = request.env['res.partner']
+        sub_obj = request.env["product.subscription.object"]
+        partner_obj = request.env["res.partner"]
         form = self.delivery_form_validation()
-        if ('error' not in request.params
-                and request.httprequest.method == 'POST'):
+        if (
+            "error" not in request.params
+            and request.httprequest.method == "POST"
+        ):
             sub = sub_obj.sudo().browse(
-                request.params['delivery_subscription']
+                request.params["delivery_subscription"]
             )
-            if request.params['delivery_method'] == 'me':
+            if request.params["delivery_method"] == "me":
                 sub.subscriber = user.partner_id
-            elif request.params['delivery_method'] == 'friend':
+            elif request.params["delivery_method"] == "friend":
                 values = {
                     key[7:]: request.params[key]
                     for key in request.params
@@ -46,20 +40,20 @@ class MedorDelivery(http.Controller):
             else:
                 # TODO: Need reference to unknow user.
                 pass
-            return request.redirect(request.params.get('redirect', ''))
+            return request.redirect(request.params.get("redirect", ""))
         return request.website.render(
-            'medor_custom.delivery_form', request.params
+            "medor_custom.delivery_form", request.params
         )
 
     def delivery_form_validation(self):
         """Execute form check and validation"""
         user = None
         if request.session.uid:
-            user = request.env['res.users'].browse(request.session.uid)
+            user = request.env["res.users"].browse(request.session.uid)
         form = DeliveryForm(request.params, user=user)
         form.normalize_form_data()
         form.validate_form()
-        if request.httprequest.method == 'GET':
+        if request.httprequest.method == "GET":
             form.init_form_data()
             form.set_form_defaults()
         return form
