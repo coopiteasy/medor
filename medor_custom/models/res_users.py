@@ -72,6 +72,6 @@ class ResUsers(models.Model):
                     "start": "",
                     "end": "",
                     "subscription": "",
-                    "subscribed": False,
+                    "subscribed": partner.is_web_subscribed,
                 }
             )
