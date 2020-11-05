@@ -13,7 +13,7 @@
     "website": "https://coopiteasy.be",
     "license": "AGPL-3",
     "category": "Website",
-    "version": "9.0.1.0",
+    "version": "9.0.2.0",
     "depends": [
         "l10n_be",
         "oauth_provider",

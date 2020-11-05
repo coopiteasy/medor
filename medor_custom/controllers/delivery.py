@@ -22,11 +22,11 @@ class MedorDelivery(http.Controller):
             and request.httprequest.method == "POST"
         ):
             sub = sub_obj.sudo().browse(
-                request.params["delivery_subscription"]
+                request.params.get("delivery_subscription")
             )
-            if request.params["delivery_method"] == "me":
+            if request.params.get("delivery_method") == "me":
                 sub.subscriber = user.partner_id
-            elif request.params["delivery_method"] == "friend":
+            elif request.params.get("delivery_method") == "friend":
                 values = {
                     key[7:]: request.params[key]
                     for key in request.params
