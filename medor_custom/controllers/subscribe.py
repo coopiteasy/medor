@@ -26,12 +26,12 @@ class MedorSubscribeController(SubscribeController):
         if request.httprequest.method == "GET":
             form.set_form_defaults()
 
-    def process_basic_form(self):
-        sub_req = super(MedorSubscribeController, self).process_basic_form()
+    def process_form(self):
+        sub_req = super(MedorSubscribeController, self).process_form()
         params = request.params
         form = DeliveryForm(None)  # Empty form to access @property
         partner_obj = request.env["res.partner"]
-        if params["delivery_method"] == "friend":
+        if params.get("delivery_method") == "friend":
             values = {
                 key[7:]: params[key]
                 for key in params
@@ -40,7 +40,7 @@ class MedorSubscribeController(SubscribeController):
             friend = partner_obj.sudo().create(values)
             params["friend_id"] = friend.id
             sub_req.subscriber = friend.id
-        elif params["delivery_method"] == "other":
+        elif params.get("delivery_method") == "other":
             # TODO: Deliver subscription to a another person.
             pass
         return sub_req

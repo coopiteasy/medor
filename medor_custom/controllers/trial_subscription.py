@@ -49,7 +49,12 @@ class TrialSubscription(http.Controller):
             "email": sub_email,
         }
 
-        subscriber = partner_obj.sudo().search([("email", "=", sub_email)])
+        subscriber = (
+            request.env["res.users"]
+            .sudo()
+            .search([("login", "=", sub_email)])
+            .partner_id
+        )
         if not subscriber:
             subscriber = partner_obj.sudo().create(values)
 
