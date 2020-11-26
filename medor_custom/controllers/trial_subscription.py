@@ -58,7 +58,7 @@ class TrialSubscription(http.Controller):
         if not subscriber:
             subscriber = partner_obj.sudo().create(values)
 
-        if not user_obj.user_exist(sub_email):
+        if not user_obj.user_exists(sub_email):
             user_obj.create_user(
                 {"login": sub_email, "partner_id": subscriber.id}
             )
