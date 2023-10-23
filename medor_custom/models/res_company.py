@@ -21,9 +21,13 @@ class ResCompany(models.Model):
     def _compute_company_data(self):
         for company in self:
             subscribers = (
-                self.env["res.partner"]
+                self.env["product.subscription.object"]
                 .sudo()
-                .search([("subscriber", "=", True)])
+                .search([
+                    ("state", "in", ["ongoing", "renew"]),
+                    ("is_trial", "=", False),
+                ])
+                .mapped("subscriber")
             )
             company.nb_subscribers = len(subscribers)
 
