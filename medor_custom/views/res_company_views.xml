@@ -11,8 +11,9 @@
             <field name="inherit_id" ref="base.view_company_form"/>
             <field name="arch" type="xml">
                 <field name="website" position="after">
-                    <field name="nb_subscribers"/>
                     <field name="nb_cooperators"/>
+                    <field name="nb_subscribers"/>
+                    <field name="nb_trial_subscribers"/>
                 </field>
             </field>
         </record>
