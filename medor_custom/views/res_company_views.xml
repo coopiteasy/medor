@@ -14,6 +14,7 @@
                     <field name="nb_cooperators"/>
                     <field name="nb_subscribers"/>
                     <field name="nb_trial_subscribers"/>
+                    <field name="nb_web_subscribers"/>
                 </field>
             </field>
         </record>
