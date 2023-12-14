@@ -38,6 +38,7 @@
         "templates/trial_subscription_form.xml",
         "templates/delivery_templates.xml",
         "templates/user_form.xml",
+        "views/res_company_views.xml",
     ],
     "demo": ["demo/demo.xml"],
 }
